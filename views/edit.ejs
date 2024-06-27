@@ -1,0 +1,14 @@
+<div class="add-div">
+    <h1>Add Post</h1>
+
+    <form class="add-form" method="post" action="/update/<%= post._id %>">
+        <label class="add-label">Title*</label>
+        <input type="text" class="add-input" name="title" value="<%= post.title %>" required>
+        <label class="add-label">Content*</label>
+        <textarea name="content" id="content" rows="20" class="textarea" required><%= post.content %></textarea>
+        <label class="add-label">Author*</label>
+        <input name="author" type="text" class="add-input" value="<%= post.author %>" required>
+
+        <input type="submit" value="Edit" class="add-submit" id="edit-confirm-btn">
+    </form>
+</div>

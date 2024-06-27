@@ -1,0 +1,12 @@
+<header class="header">
+    <a href="/" class="header-logo">NodeJs Blog</a>
+
+    <form id="searchForm" class="form" action="" method="GET">
+        <input class="form-input" name="searchTerm" placeholder="Search the site..." type="search">
+        <select id="searchType" class="form-select" onchange="updateAction()">
+            <option value="post">Post</option>
+            <option value="author">Author</option>
+        </select>
+        <input type="submit" value="Search" class="form-submit">
+    </form>
+</header>

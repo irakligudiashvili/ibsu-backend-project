@@ -1,0 +1,68 @@
+<div class="article-title-div">
+    <h1 class="article-main-title"><%= post.title %></h1>
+
+    <div class="article-buttons-div">
+        <button id="edit-btn" class="article-btn article-edit" data-id="<%= post._id %>">Edit</button>
+        <button id="delete-btn" data-id="<%= post._id %>" class="article-btn article-delete">Delete</button>
+    </div>
+</div>
+
+<article class="article">
+    <%= post.content %>
+</article>
+
+<p class="article-author">Written by: <%= post.author %></p>
+
+<div class="add-div">
+    <p class="comments-title">Comments</p>
+
+    <form class="add-form" method="post" action="<%= post._id %>/comment">
+        <label class="add-label">Name (not required)</label>
+        <input class="add-input" type="text" name="author">
+        <label class="add-label">Comment</label>
+        <textarea class="textarea" rows="10" name="comment" required></textarea>
+
+        <input type="submit" value="Add Comment" class="add-submit" id="add-comment-btn">
+    </form>
+</div>
+
+<div class="comment-section">
+    <% if (post.comments && post.comments.length) { %>
+        <% post.comments.forEach(comment => { %>
+            <div class="comment">
+                <div class="comment-top">
+                    <p class="comment-author"><%= comment.author %></p>
+                    <div class="comment-right">
+                        <button class="comment-delete" data-comment-id="<%= comment.id %>" data-post-id="<%= post._id %>">Delete</button>
+                        <p class="comment-date"><%= new Date(comment.createdAt).toLocaleDateString() %></p>
+                    </div>
+                </div>
+                <p class="comment-content"><%= comment.comment %></p>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No comments yet.</p>
+    <% } %>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.comment-delete').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const postId = button.getAttribute('data-post-id');
+                const commentId = button.getAttribute('data-comment-id');
+
+                try {
+                    const response = await fetch(`/delete-comment/${postId}/${commentId}`, {
+                        method: 'DELETE'
+                    });
+
+                    window.location.reload();
+
+                } catch (error) {
+                    console.error('Failed to delete comment:', error.message);
+                }
+            });
+        });
+    });
+</script>

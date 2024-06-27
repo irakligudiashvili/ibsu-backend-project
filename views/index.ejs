@@ -1,0 +1,39 @@
+<img src="/images/mongodb.png" class="image">
+
+<p class="pretext">Created with NodeJS, Express & MongoDB </p>
+
+<div class="articles">
+    <div class="articles-heading-div">
+        <h2 class="articles-heading">Latest Posts</h2>
+        <a href="add"><button id="add-btn" class="add-btn">Add New</button></a>
+    </div>
+
+    <ul class="article-ul">
+        <% if (posts && posts.length) { %>
+            <% posts.forEach(post => { %>
+                <li class="article-li">
+                    <a href="/<%= post._id %>">
+                        <h3 class="article-title"><%= post.title %></h3>
+                        <p class="article-date"><%= new Date(post.createdAt).toLocaleDateString() %></p>
+                    </a>
+                </li>
+            <% }) %>
+        <% } else { %>
+            <li class="article-li">No posts available</li>
+        <% } %>
+    </ul>
+</div>
+
+<div class="pagination">
+    <div class="next">
+        <% if (nextPage) { %>
+            <a href="/?page=<%= nextPage %>" >Previous</a>
+        <% } %>
+    </div>
+    <div class="previous">
+        <% if (current > 1) { %>
+            <a href="/?page=<%= current - 1 %>" >Next</a>
+        <% } %>
+    </div>
+    
+</div>
